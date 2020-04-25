@@ -1,20 +1,199 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
+<ion-header [translucent]="true" >
+    <ion-toolbar>
+        <ion-title>
+            Liste d'etudiants
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true"  class="ion-margin-top">
+    <div id="container">
+        <form [formGroup]="studentForm">
+        <ion-grid >
+            <ion-row>
+                <ion-col class="ion-text-start ion-text-md-center">Civilite</ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <ion-segment
+                            (ionChange)="segmentChanged($event)"
+                            color="primary"
+                            value="M"
+                    >
+                        <ion-segment-button value="MLLE">
+                            <ion-label>Mlle</ion-label>
+                        </ion-segment-button>
+                        <ion-segment-button value="MME">
+                            <ion-label>Mme</ion-label>
+                        </ion-segment-button>
+                        <ion-segment-button value="M">
+                            <ion-label>M</ion-label>
+                        </ion-segment-button>
+                    </ion-segment>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12" sizeMd="4">
+                    <ion-input
+                            minlength="2"
+                            required
+                            placeholder="Name"
+                            [formControlName]="firstName"
+                    ></ion-input>
+                    <div class="alert alert-danger" *ngIf="studentForm.get(firstName).touched && !studentForm.get(firstName).valid">
+                        <div *ngIf="studentForm.get(firstName).value === ''">Name is required</div>
+                        <div *ngIf="studentForm.get(firstName).value.length < 2 ">Name has to be at least 2 characters big</div>
+                    </div>
+                </ion-col>
+                <ion-col size="12" sizeMd="4">
+                    <ion-input
+                            minlength="2"
+                            required
+                            placeholder="Last Name"
+                            [formControlName]="lastName"
+                    ></ion-input>
+                    <div class="alert alert-danger" *ngIf="studentForm.get(lastName).touched && !studentForm.get(lastName).valid">
+                        <div *ngIf="studentForm.get(lastName).value === ''">Last Name is required</div>
+                        <div *ngIf="studentForm.get(lastName).value.length < 2 ">Last Name has to be at least 2 characters big</div>
+                    </div>
+                </ion-col>
+                <ion-col size="12" sizeMd="4">
+                    <ion-datetime
+                            required
+                            value="2019-10-01T15:43:40.394Z"
+                            display-timezone="utc"
+                            [formControlName]="bdate"
+                    ></ion-datetime>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="ion-text-start ion-text-md-center">
+                    Address
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12" sizeMd="4">
+                    <ion-input
+                            minlength="3"
+                            maxlength="30"
+                            required
+                            placeholder="Route"
+                            [formControlName]="route"
+                    ></ion-input>
+                    <div class="alert alert-danger" *ngIf="studentForm.get(route).touched && !studentForm.get(route).valid">
+                        <div *ngIf="studentForm.get(route).value === ''">Route is required</div>
+                        <div *ngIf="studentForm.get(route).value.length < 3 ">Route has to be at least 3 characters big</div>
+                        <div *ngIf="studentForm.get(route).value.length > 30 ">Route has to be less then 30 characters big</div>
+                    </div>
+                </ion-col>
+                <ion-col size="12" sizeMd="4">
+                    <ion-input
+                            minlength="3"
+                            maxlength="30"
+                            required
+                            placeholder="Code Postal"
+                            [formControlName]="cp"
+                    ></ion-input>
+                    <div class="alert alert-danger" *ngIf="studentForm.get(cp).touched && !studentForm.get(cp).valid">
+                        <div *ngIf="studentForm.get(cp).value === ''">Code Postal is required</div>
+                        <div *ngIf="studentForm.get(cp).value.length < 3 ">Code Postal has to be at least 3 characters big</div>
+                        <div *ngIf="studentForm.get(cp).value.length > 30 ">Code Postal has to be less then 30 characters big</div>
+                    </div>
+                </ion-col>
+                <ion-col size="12" sizeMd="4">
+                    <ion-input
+                            minlength="3"
+                            maxlength="30"
+                            required
+                            placeholder="Ville"
+                            [formControlName]="city"
+                    ></ion-input>
+                    <div class="alert alert-danger" *ngIf="studentForm.get(city).touched && !studentForm.get(city).valid">
+                        <div *ngIf="studentForm.get(city).value === ''">Ville is required</div>
+                        <div *ngIf="studentForm.get(city).value.length < 3 ">Ville has to be at least 3 characters big</div>
+                        <div *ngIf="studentForm.get(city).value.length > 30 ">Ville has to be less then 30 characters big</div>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col class="ion-text-start ion-text-md-center">
+                    Contact
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12" sizeMd="6">
+                    <ion-input
+                            maxlength="15"
+                            required
+                            placeholder="Telephone"
+                            [formControlName]="tel"
+                    ></ion-input>
+                    <div class="alert alert-danger" *ngIf="studentForm.get(tel).touched && !studentForm.get(tel).valid">
+                        <div *ngIf="studentForm.get(tel).value == ''">Telephone is required</div>
+                        <div *ngIf="studentForm.get(tel).value.length > 15 ">Telephone has to be less then 15 characters big</div>
+                    </div>
+                </ion-col>
+                <ion-col size="12" sizeMd="6">
+                    <ion-input
+                            minlength="3"
+                            maxlength="30"
+                            required
+                            [formControlName]="mail"
+                            type="email"
+                            placeholder="Email"
+                    ></ion-input>
+                    <div class="alert alert-danger" *ngIf="studentForm.get(mail).touched && !studentForm.get(mail).valid">
+                        <div *ngIf="studentForm.get(mail).value === ''">Email is required</div>
+                        <div *ngIf="studentForm.get(mail).value.length < 3 ">Email has to be at least 3 characters big</div>
+                        <div *ngIf="studentForm.get(mail).value.length > 30 ">Email has to be less then 30 characters big</div>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col sizeMd="2">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+                </ion-col>
+                <ion-col>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size="12" sizeMd="6">
+                                <ion-item>
+                                    <ion-label>Redoublant</ion-label>
+                                    <ion-toggle
+                                            checked="false"
+                                            [formControlName]="redoublant"
+                                    ></ion-toggle>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col size="12" sizeMd="6">
+                                <ion-button
+                                        (click)="onButtonClicked()"
+                                        type="submit"
+                                        [disabled]="!studentForm.valid"
+                                >Enregistrer</ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-col>
+                <ion-col sizeMd="2">
+
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        </form>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="0" sizeMd="4"></ion-col>
+                <ion-col class="psaclay">
+                    <ion-img class="ion-padding m-auto" src="https://driminsaclay.fr/wp-content/uploads/2019/03/logo-institutionnel-rvb-hd.jpg"></ion-img>
+                    <ion-list>
+                        <app-student-list  *ngFor="let student of listStudents" [student]="student">
+
+                        </app-student-list>
+                    </ion-list>
+                </ion-col>
+                <ion-col size="0" sizeMd="4"></ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 </ion-content>
