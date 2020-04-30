@@ -44,6 +44,21 @@ export class HomePage {
         console.log(this.studentForm.get(this.redoublant));
     }
 
+
+    public clearControls() {
+        this.studentForm.get(this.firstName).reset('');
+        this.studentForm.get(this.lastName).reset('');
+        this.studentForm.get(this.bdate).reset('');
+        this.studentForm.get(this.redoublant).setValue(false);
+        this.studentForm.get(this.route).reset('');
+        this.studentForm.get(this.cp).reset('');
+        this.studentForm.get(this.city).reset('');
+        this.studentForm.get(this.mail).reset('');
+        this.studentForm.get(this.tel).reset('');
+        this.studentForm.get(this.tel).reset('');
+
+    }
+
     public onButtonClicked() {
         if (!this.studentForm.valid) {
             return;
@@ -60,5 +75,6 @@ export class HomePage {
         this.person.civility = this.segment;
         this.listStudents[this.listStudents.length] = this.person;
         console.log(this.listStudents);
+        this.clearControls();
     }
 }
